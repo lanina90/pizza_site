@@ -7,4 +7,5 @@ Technologies:
  - React Hooks
  - Axios 
  - CSS-Modules / SCSS
- - React Content Loader 
+ - React Content Loader -
+ - Paginate
