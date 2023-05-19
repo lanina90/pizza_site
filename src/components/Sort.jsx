@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
+import HomeContext from "../context/HomeContext";
 
-const Sort = ({sortId, onClickSort}) => {
+const Sort = () => {
 
   const [isVisible, setIsVisible] = useState(false)
+
+  const {sortId, setSortId} = useContext(HomeContext)
 
   const list = [
     {
@@ -28,7 +31,7 @@ const Sort = ({sortId, onClickSort}) => {
 ]
 
   const onClickSortItem = (id) => {
-    onClickSort(id)
+    setSortId(id)
     setIsVisible(false)
   }
 

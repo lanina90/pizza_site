@@ -1,10 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {pizzaApi} from "../API/api";
+import HomeContext from "../context/HomeContext";
 
 
-const Categories = ({categoryId, onClickCategory}) => {
+
+const Categories = () => {
 
   const [categories, setCategories] = useState([])
+  const {categoryId, setCategoryId} = useContext(HomeContext)
 
   useEffect(() => {
     pizzaApi.getCategories()
@@ -16,7 +19,7 @@ const Categories = ({categoryId, onClickCategory}) => {
       <ul>
         {categories.map((category, i) => {
           return <li
-            onClick={() => onClickCategory(i) }
+            onClick={() => setCategoryId(i)}
             className={categoryId === category.id ? "active" : ''}
             key={i}>
             {category.name}</li>
