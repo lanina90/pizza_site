@@ -5,14 +5,25 @@ const Sort = ({sortId, onClickSort}) => {
   const [isVisible, setIsVisible] = useState(false)
 
   const list = [
-    {name: 'most popular',
+    {
+      name: '⇣ most popular',
       sortProperty: "rating"
     },
-    {name: 'price',
+    {
+      name: '⇣ price  ',
       sortProperty: "price"
     },
-    {name: 'alphabet',
+    {
+      name: '⇡  price',
+      sortProperty: "-price"
+    },
+    {
+      name: '⇣ alphabet',
       sortProperty: "title"
+    },
+    {
+      name: '⇡ alphabet',
+      sortProperty: "-title"
     },
 ]
 

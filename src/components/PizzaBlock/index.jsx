@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 
-const Index = ({
+const PizzaBlock = ({
                       title,
                       price,
                       imageUrl,
@@ -69,4 +69,4 @@ const Index = ({
   );
 };
 
-export default Index;
+export default PizzaBlock;
