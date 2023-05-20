@@ -15,7 +15,6 @@ const Home = () => {
   const [pizzas, setPizzas] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
-
   const {searchValue} = useContext(AppContext)
 
 
