@@ -1,11 +1,14 @@
 import React, {useContext, useState} from 'react';
 import HomeContext from "../context/HomeContext";
+import {useDispatch, useSelector} from "react-redux";
+import {setSort} from "../redux/slices/filterSlice";
 
 const Sort = () => {
 
-  const [isVisible, setIsVisible] = useState(false)
+  const dispatch = useDispatch()
+  const sort = useSelector(state => state.filter.sort)
 
-  const {sortId, setSortId} = useContext(HomeContext)
+  const [isVisible, setIsVisible] = useState(false)
 
   const list = [
     {
@@ -30,8 +33,8 @@ const Sort = () => {
     },
 ]
 
-  const onClickSortItem = (id) => {
-    setSortId(id)
+  const onClickSortItem = (obj) => {
+    dispatch(setSort(obj))
     setIsVisible(false)
   }
 
@@ -51,7 +54,7 @@ const Sort = () => {
           />
         </svg>
         <b>Sort by:</b>
-        <span onClick={() => setIsVisible(!isVisible)}>{sortId.name}</span>
+        <span onClick={() => setIsVisible(!isVisible)}>{sort.name}</span>
       </div>
       {isVisible ? (
         <div className="sort__popup">
@@ -60,7 +63,7 @@ const Sort = () => {
               list.map((obj, i) => (
                 <li
                   key={i}
-                  className={sortId.sortProperty === obj.sortProperty ? 'active' : ''}
+                  className={sort.sortProperty === obj.sortProperty ? 'active' : ''}
                   onClick={() => onClickSortItem(obj)}
                 >{obj.name}</li>
               ))

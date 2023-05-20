@@ -1,13 +1,15 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {pizzaApi} from "../API/api";
 import HomeContext from "../context/HomeContext";
+import {useDispatch, useSelector} from "react-redux";
 
 
 
-const Categories = () => {
+const Categories = ({onChangeCategory}) => {
 
   const [categories, setCategories] = useState([])
   const {categoryId, setCategoryId} = useContext(HomeContext)
+
 
   useEffect(() => {
     pizzaApi.getCategories()
@@ -19,7 +21,7 @@ const Categories = () => {
       <ul>
         {categories.map((category, i) => {
           return <li
-            onClick={() => setCategoryId(i)}
+            onClick={() => onChangeCategory(i)}
             className={categoryId === category.id ? "active" : ''}
             key={i}>
             {category.name}</li>

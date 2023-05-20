@@ -13,7 +13,6 @@ function App() {
   const [searchValue, setSearchValue] = useState('')
 
   return (
-
       <div className="wrapper">
         <AppContext.Provider value={{searchValue, setSearchValue}}>
         <Header/>
@@ -29,7 +28,6 @@ function App() {
         </div>
         </AppContext.Provider>
       </div>
-
   );
 }
 

@@ -7,24 +7,26 @@ import PizzaBlock from "../components/PizzaBlock";
 import Pagination from "../Pagination";
 import AppContext from "../context/AppContext";
 import HomeContext from "../context/HomeContext";
+import {useDispatch, useSelector} from "react-redux";
+import {setCategoryId} from "../redux/slices/filterSlice";
 
 const Home = () => {
 
   const [pizzas, setPizzas] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [categoryId, setCategoryId] = useState(0)
-  const [sortId, setSortId] = useState({
-    name: 'most popular',
-    sortProperty: "rating"
-  })
   const [currentPage, setCurrentPage] = useState(1)
 
   const {searchValue} = useContext(AppContext)
 
+
+  const dispatch = useDispatch()
+  const categoryId = useSelector(state => state.filter.categoryId)
+  const sortId = useSelector(state => state.filter.sort.sortProperty)
+
   useEffect(() => {
 
-    const order = sortId.sortProperty.includes('-') ? 'asc' : 'desc'
-    const sortBy = sortId.sortProperty.replace('-', '')
+    const order = sortId.includes('-') ? 'asc' : 'desc'
+    const sortBy = sortId.replace('-', '')
     const category = categoryId > 0 ? `category=${categoryId}` : ''
     const search = searchValue ? `title_like=${searchValue}` : ''
 
@@ -34,17 +36,15 @@ const Home = () => {
         setIsLoading(false)
       })
     window.scrollTo(0, 0)
-
-    console.log(currentPage);
   }, [categoryId, sortId, searchValue, currentPage])
 
   const pizzasCatalog = pizzas?.map(pizza => (<PizzaBlock key={pizza.id} {...pizza}/>))
 
   return (
     <>
-      <HomeContext.Provider value={{categoryId, setCategoryId, sortId, setSortId }}>
+      <HomeContext.Provider value={{categoryId}}>
       <div className="content__top">
-        <Categories/>
+        <Categories onChangeCategory={(id)=> dispatch(setCategoryId(id))}/>
         <Sort/>
       </div>
       <h2 className="content__title">Choose your favorite pizza</h2>
@@ -54,7 +54,6 @@ const Home = () => {
       <Pagination onChangePage={number => setCurrentPage(number)}/>
       </HomeContext.Provider>
     </>
-
   );
 };
 
