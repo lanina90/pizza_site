@@ -1,7 +1,19 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import CartItem from "../components/CartItem";
+import {clearItem, removeItem} from "../redux/slices/cartSlice";
 
 const Cart = () => {
+  const dispatch = useDispatch()
+  const items = useSelector(state => state.cart.items)
+
+  const onClickClear = () => {
+    if (window.confirm('Are your sure you want to remove all pizzas?')){
+      dispatch(clearItem())
+    }
+  }
+
   return (
     <div className="container container--cart">
       <div className="cart">
@@ -32,7 +44,7 @@ const Cart = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"></path>
             </svg>
-            Корзина
+            Cart
           </h2>
           <div className="cart__clear">
             <svg
@@ -67,13 +79,14 @@ const Cart = () => {
                 strokeLinejoin="round"></path>
             </svg>
 
-            <span>Очистить корзину</span>
+            <span onClick={onClickClear}>Clear Cart</span>
           </div>
         </div>
         <div className="content__items">
-          {/*{items.map((item: any) => (*/}
-          {/*  <CartItem key={item.id} {...item} />*/}
-          {/*))}*/}
+
+          {items.map((item) => (
+            <CartItem key={item.id} {...item} />
+          ))}
         </div>
         <div className="cart__bottom">
           {/*<div className="cart__bottom-details">*/}
@@ -101,10 +114,10 @@ const Cart = () => {
                   strokeLinejoin="round"></path>
               </svg>
 
-              <span>Вернуться назад</span>
+              <span>Back</span>
             </Link>
             <div className="button pay-btn">
-              <span>Оплатить сейчас</span>
+              <span>Pay Now</span>
             </div>
           </div>
         </div>
