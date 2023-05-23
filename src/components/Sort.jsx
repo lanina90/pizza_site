@@ -1,42 +1,41 @@
 import React, {useContext, useState} from 'react';
-import HomeContext from "../context/HomeContext";
 import {useDispatch, useSelector} from "react-redux";
 import {setSort} from "../redux/slices/filterSlice";
+
+export const list = [
+  {
+    name: '⇣ most popular',
+    sortProperty: "rating"
+  },
+  {
+    name: '⇣ price  ',
+    sortProperty: "price"
+  },
+  {
+    name: '⇡  price',
+    sortProperty: "-price"
+  },
+  {
+    name: '⇣ alphabet',
+    sortProperty: "title"
+  },
+  {
+    name: '⇡ alphabet',
+    sortProperty: "-title"
+  },
+]
 
 const Sort = () => {
 
   const dispatch = useDispatch()
   const sort = useSelector(state => state.filter.sort)
-
   const [isVisible, setIsVisible] = useState(false)
-
-  const list = [
-    {
-      name: '⇣ most popular',
-      sortProperty: "rating"
-    },
-    {
-      name: '⇣ price  ',
-      sortProperty: "price"
-    },
-    {
-      name: '⇡  price',
-      sortProperty: "-price"
-    },
-    {
-      name: '⇣ alphabet',
-      sortProperty: "title"
-    },
-    {
-      name: '⇡ alphabet',
-      sortProperty: "-title"
-    },
-]
 
   const onClickSortItem = (obj) => {
     dispatch(setSort(obj))
     setIsVisible(false)
   }
+
 
   return (
     <div className="sort">
@@ -70,8 +69,6 @@ const Sort = () => {
             }
           </ul>
         </div>) : ''}
-
-
     </div>
   );
 };
