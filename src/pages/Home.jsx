@@ -26,6 +26,7 @@ const Home = () => {
   const sortId = useSelector(state => state.filter.sort.sortProperty)
   const currentPage = useSelector(state => state.filter.currentPage)
 
+
   const onChangePage = (page) => {
     dispatch(setCurrentPage(page))
   }
@@ -65,11 +66,9 @@ const Home = () => {
  // //если был первый ендер то проверяем URL - параметры и сохраняем в редаксе
   useEffect(() => {
     if (window.location.search) {
-
       const params = qs.parse(window.location.search.substring(1))
       const sort = list.find(obj => obj.sortProperty === params.sortId)
       dispatch(setFilters({...params, sort}))
-
     }
     isSearch.current = false
   }, [])

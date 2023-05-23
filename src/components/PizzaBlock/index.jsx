@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {addProduct} from "../../redux/slices/cartSlice";
 
 
 const PizzaBlock = ({
@@ -6,9 +8,10 @@ const PizzaBlock = ({
                       price,
                       imageUrl,
                       sizes,
-                      types }) => {
+                      types
+                    }) => {
 
-  const doughTypes = ['thin-crust', 'traditional' ]
+  const doughTypes = ['thin-crust', 'traditional']
 
   const [activeType, setActiveType] = useState(0)
   const [activeSize, setActiveSize] = useState(0)
