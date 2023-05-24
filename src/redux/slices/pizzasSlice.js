@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const fetchPizzas = createAsyncThunk(
   "pizza/fetchPizzas",
-  async (params) => {
+  async (params, thunkAPI) => {
     const {order, sortBy, category, search, currentPage} = params
     const {data} = await axios(`http://localhost:3001/pizzas?${category}&_page=${currentPage}&_limit=4&_sort=${sortBy}&_order=${order}&${search}`)
     return data

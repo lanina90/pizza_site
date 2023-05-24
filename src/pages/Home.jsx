@@ -5,23 +5,24 @@ import Categories from "../components/Categories";
 import Sort, {list} from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Pagination from "../Pagination";
-import AppContext from "../context/AppContext";
-import HomeContext from "../context/HomeContext";
+
 import {useDispatch, useSelector} from "react-redux";
-import {setCategoryId, setCurrentPage, setFilters} from "../redux/slices/filterSlice";
-import {useNavigate} from "react-router-dom";
+import {setCurrentPage, setFilters} from "../redux/slices/filterSlice";
+import {Link, useNavigate} from "react-router-dom";
 import {fetchPizzas} from "../redux/slices/pizzasSlice";
 
 const Home = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
   const isSearch = useRef(false)
   const isMounted = useRef(false)
-  const {searchValue} = useContext(AppContext)
 
+  const searchValue = useSelector(state => state.filter.searchValue)
   const categoryId = useSelector(state => state.filter.categoryId)
   const sortId = useSelector(state => state.filter.sort.sortProperty)
   const currentPage = useSelector(state => state.filter.currentPage)
+
   const {pizzas, status} = useSelector(state => state.pizzas)
 
 
@@ -77,13 +78,12 @@ const Home = () => {
   }, [categoryId, sortId, searchValue, currentPage])
 
 
-  const pizzasCatalog = pizzas?.map(pizza => (<PizzaBlock key={pizza.id} {...pizza}/>))
+  const pizzasCatalog = pizzas?.map(pizza => <Link key={pizza.id} to={`/pizza/${pizza.id}`}><PizzaBlock {...pizza}/></Link>)
 
   return (
     <>
-      <HomeContext.Provider value={{categoryId}}>
         <div className="content__top">
-          <Categories onChangeCategory={(id) => dispatch(setCategoryId(id))}/>
+          <Categories/>
           <Sort/>
         </div>
         <h2 className="content__title">Choose your favorite pizza</h2>
@@ -92,7 +92,6 @@ const Home = () => {
         </div>)}
 
         <Pagination currentPage={currentPage} onChangePage={onChangePage}/>
-      </HomeContext.Provider>
     </>
   );
 };

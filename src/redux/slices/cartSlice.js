@@ -42,7 +42,7 @@ export const cartSlice = createSlice({
     }
   }
 })
-
+export const selectCart = (state) => state.cart
 export const {
   addItem, minusItem,removeItem, clearItem
 } = cartSlice.actions

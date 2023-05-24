@@ -1,16 +1,18 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {pizzaApi} from "../API/api";
-import HomeContext from "../context/HomeContext";
 import {useDispatch, useSelector} from "react-redux";
+import {setCategoryId} from "../redux/slices/filterSlice";
 
 
-
-const Categories = ({onChangeCategory}) => {
-
+const Categories = () => {
+  const dispatch = useDispatch()
   const [categories, setCategories] = useState([])
-  const {categoryId, setCategoryId} = useContext(HomeContext)
 
+  const categoryId = useSelector(state => state.filter.categoryId)
 
+  const onChangeCategory = (id) => {
+    dispatch(setCategoryId(id))
+  }
   useEffect(() => {
     pizzaApi.getCategories()
       .then(res => setCategories(res.data))
