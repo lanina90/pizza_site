@@ -1,11 +1,10 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import qs from 'qs'
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Categories from "../components/Categories";
 import Sort, {list} from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Pagination from "../Pagination";
-
 import {useDispatch, useSelector} from "react-redux";
 import {setCurrentPage, setFilters} from "../redux/slices/filterSlice";
 import {Link, useNavigate} from "react-router-dom";
